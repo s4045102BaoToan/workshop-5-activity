@@ -1,0 +1,55 @@
+--select first year and temperature in globaltemp 
+    select year, AvgLandTemp
+    from globaltemp 
+    where year = (select min (year) from globaltemp)
+    ;
+--select last year and temperature in globaltemp 
+    SELECT YEAR, AvgLandTemp
+    FROM GLOBALTEMP
+    WHERE year = (select max(year) from GLOBALTEMP) 
+    
+;
+--calculate numbers of years of available data in oceanLandTemp
+    select endyear - startyear as yearsAvailable FROM (
+    select gt.year as startyear
+    from globaltemp gt
+    where year = (select min (year) from globaltemp where AvgOceanLandTemp is not null) ),
+    (SELECT YEAR as endyear
+    FROM GLOBALTEMP gt
+    WHERE year = (select max(year) from GLOBALTEMP) and exists (
+        select gt.Year, gt.AvgOceanLandTemp
+        from globaltemp where gt.AvgOceanLandTemp is not null
+    )
+    )
+;
+
+--start year land temp (put in global temperature box)
+    select year, avglandtemp from globaltemp
+    where year = (select min(year) from globaltemp)
+    ;
+
+--end year land temp (put in global temperature box)
+    select year, avglandtemp from globaltemp
+    where year = (select max(year) from globaltemp)
+    ;
+----------------numbers of years available for global temp
+select endyear - startyear as available_years from 
+(select year as startyear from globaltemp
+where year = (select min(year) from globaltemp)
+),
+--end year land temp (put in global temperature box)
+(select year as endyear from globaltemp
+where year = (select max(year) from globaltemp)
+)
+;
+
+--average global population year start
+
+select pyear, avg(population) as avg_pop_start from countrypopulation
+where pyear = (select min(pyear) from countrypopulation)
+;--year end
+select pyear, avg(population) as avg_pop_end from countrypopulation
+where pyear = (select max(pyear) from countrypopulation)
+;
+
+

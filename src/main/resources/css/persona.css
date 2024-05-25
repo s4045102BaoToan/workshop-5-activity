@@ -1,0 +1,255 @@
+
+.top-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 2px solid black;
+    background-color: white; /* Add a background color to ensure visibility */
+    z-index: 1000; /* Ensure the menu stays above other content */
+}
+
+
+.logo-and-name {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container img {
+    height: 50px; /* Adjust as needed */
+    width: 50px; /* Adjust as needed */
+}
+
+.website-name {
+    margin-left: 10px;
+    font-size: 20px;
+    color: black;
+    text-decoration: none;
+}
+
+.menu-buttons {
+    display: flex;
+    
+}
+
+.dropdown {
+    position: relative;
+    margin-right: 150px; /* Adjust as needed */
+    
+}
+.dropbtn{
+    border: none;
+    font-size: 20px;
+    background-color: white;
+}
+.basic-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 130px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.advance-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.basic-content a{
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.advance-content a{
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.advance-content a:hover {
+    background-color: rgba(0,0,0,0.2);
+}
+.basic-content a:hover{
+    background-color:rgba(0,0,0,0.2);
+}
+
+.dropdown:hover .basic-content {
+    display: block;
+}
+.dropdown:hover .advance-content{
+    display: block;
+}
+.about a{
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 40px;
+}
+/*-----------------------------------------------------------*/
+
+.ppp{
+    margin: 80px auto;
+}
+.ppp h1{
+    border: solid ;
+    padding: 10px;
+    text-align: center;
+    margin-left: 600px;
+    margin-right: 600px;
+}
+.ppp h2{
+    text-align: center;
+    color: #ffffff;
+    background-color: #1f88b1;
+    margin-left: 600px;
+    margin-right: 600px;
+    padding: 15px;
+    font-style: italic;
+}
+.ppp h3{
+    text-align: center;
+    width: 70vw;
+    color: #edf7f6;
+    background-color: rgb(66, 94, 173);
+    padding: 20px;
+    margin: auto calc(50% - 35vw);
+    line-height: 35px;
+    font-style: italic;
+    
+}
+.ppp a{
+    text-decoration: none;
+    color: #BFF8D7;
+}
+.personabox{
+    background-color: rgba(200, 222, 231, 0.74);
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    width: 80%;    
+}
+#persona1, #persona2, #persona3{
+    margin:10px;
+    width:20%;
+
+}
+#persona2{
+ object-fit: cover;
+}
+.personas{
+    border-top: 1px solid rgba(0,0,0,0.3);
+    border-bottom: 1px solid rgba(0,0,0,0.3);
+    
+}
+
+.titlebox p1, p2, p3{
+    background-color:rgb(72, 133, 190);
+    font-style: bold;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-color:rgb(10, 79, 158);
+    width: 50vh;
+    display: flex;
+    height: fit-content;
+    margin:10px;
+    justify-content: space-around;
+    align-content: auto;
+    align-self: center;
+    font-size: 100%;
+    
+}
+#nameage{ 
+    background-color: rgba(200, 222, 231, 0.74);
+    margin: 10px auto;
+    display: grid;
+    width: 80%;  
+    grid-template-columns: repeat(3,1fr);  
+    grid-auto-rows: minmax(60,auto);
+
+    
+}
+h1{
+    text-align: center;
+}
+/*-------------------------------------------------------------------------*/
+.designer-box{
+    border: 2px solid black;
+    border-radius: 7px;
+    text-align: center;
+    font-size: 24px;
+    margin: 80px 600px;
+}
+.members1{
+    display:flex;
+   background-color: white;
+   margin: 0px 100px 0px 100px;
+   justify-content: space-evenly;
+}
+
+
+
+
+
+/*-------------------------------------footer---------------------------------------*/
+.sitemap-footer {
+    position: relative;
+    top:8vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px 20px 10px 20px;
+    background-color: #f2f2f2;
+    margin-top: 30px;
+    border-radius: 7px;
+    border-top: 2px solid black;
+}
+.logo-container-foot {
+    margin-right: 20px;
+}
+
+.sitemap-section {
+    flex: 1;
+    margin-right: 20px;
+}
+.sitemap-section p{
+    display:flex;
+    justify-content: flex-end;
+}
+
+.sitemap-section h3 {
+    font-size: 18px;
+    color: #333;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.sitemap-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sitemap-section ul li {
+    margin-bottom: 8px;
+}
+
+.sitemap-section ul li a {
+    text-decoration: none;
+    color: #666;
+}
+
+.sitemap-section ul li a:hover {
+    color: #000;
+    text-decoration: underline;
+}

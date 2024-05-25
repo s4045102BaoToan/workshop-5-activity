@@ -1,0 +1,304 @@
+.top-menu {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 10px;
+   border-bottom: 2px solid black;
+   background-color: white; /* Add a background color to ensure visibility */
+   z-index: 1000; /* Ensure the menu stays above other content */
+}
+
+
+.logo-and-name {
+   display: flex;
+   align-items: center;
+}
+
+.logo-container img {
+   height: 50px; /* Adjust as needed */
+   width: 50px; /* Adjust as needed */
+}
+
+.website-name {
+   margin-left: 10px;
+   font-size: 20px;
+   color: black;
+   text-decoration: none;
+}
+
+.menu-buttons {
+   display: flex;
+   
+}
+
+.dropdown {
+   position: relative;
+   margin-right: 150px; /* Adjust as needed */
+   
+}
+.dropbtn{
+   border: none;
+   font-size: 20px;
+   background-color: white;
+}
+.basic-content {
+   display: none;
+   position: absolute;
+   background-color: #f9f9f9;
+   min-width: 130px;
+   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+   z-index: 1;
+}
+.advance-content {
+   display: none;
+   position: absolute;
+   background-color: #f9f9f9;
+   min-width: 200px;
+   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+   z-index: 1;
+}
+
+.basic-content a{
+   color: black;
+   padding: 12px 16px;
+   text-decoration: none;
+   display: block;
+}
+.advance-content a{
+   color: black;
+   padding: 12px 16px;
+   text-decoration: none;
+   display: block;
+}
+
+.advance-content a:hover {
+   background-color: rgba(0,0,0,0.2);
+}
+.basic-content a:hover{
+   background-color:rgba(0,0,0,0.2);
+}
+
+.dropdown:hover .basic-content {
+   display: block;
+}
+.dropdown:hover .advance-content{
+   display: block;
+}
+.about a{
+   text-decoration: none;
+   color: black;
+   font-size: 20px;
+   font-weight: bold;
+   margin-right: 40px;
+}
+
+/*------------------------------------------subtask1A------------------------------------------*/
+.Subtask {
+   position: relative;
+   top: 12vh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   height: auto; 
+   margin-top: 20px;
+}
+
+.tableInfo {
+   position: relative;
+   margin-top: 0px;
+}
+
+#subtasktitle {
+   margin-bottom: 0px;
+}
+
+.subtask1A {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-wrap: wrap;
+   border-bottom: 2px solid rgba(0,0,0,0.2);
+}
+
+.table1, .table2, .table3 {
+   border-spacing: 30px;
+   padding: 20px 40px;
+   border-style: none;
+   box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.76);
+   margin: 50px;
+   font-size: 30px;
+}
+
+.pic {
+   margin: 150px;
+}
+
+.global {
+   margin-left: 30px;
+   font-size: 40px;
+}
+
+/*------------------------------------------STARTNOW------------------------------------------*/
+.normal, .link {
+   font-weight: normal;
+   margin-left: 10px;
+   color: black;
+   font-size: 24px;
+   font-family: "Times New Roman", Times, serif;
+   padding-top: 5px;
+}
+
+.link {
+   color: black;
+   font-size: 24px;
+   padding-top: 5px;
+   width: inherit;
+   text-align: center;
+}
+
+.mid {
+   color: #f1f1f1;
+   padding: 20px;
+   border: black;
+   border-radius: 20px;
+   position: relative;
+}
+
+.in {
+   color: black;
+   text-align: center;
+   font-size: 30px;
+   font-family: Arial, Helvetica, sans-serif;
+   font-weight: bold;
+   margin-bottom: 10px;
+}
+
+.SubtaskStart {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column; 
+   height: auto; 
+   background-color: #f1f1f1;
+   margin-top: 110px;
+}
+
+.link a {
+   text-decoration: none;
+   font-weight: 600;
+   color: green;
+}
+
+.link a:hover {
+   text-decoration: underline;
+}
+
+.bear {
+   border-radius: 7px;
+   box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.76);
+   margin: 20px; /* Adjusted for better spacing */
+}
+
+/*------------------------------------------FOOTER------------------------------------------*/
+.sitemap-footer {
+   position: relative;
+   top:8vh;
+   display: flex;
+   align-items: flex-start;
+   justify-content: space-between;
+   padding: 20px 20px 10px 20px;
+   background-color: #f2f2f2;
+   margin-top: 30px;
+   border-radius: 7px;
+   border-top: 2px solid black;
+}
+.logo-container-foot {
+   margin-right: 20px;
+}
+
+.sitemap-section {
+   flex: 1;
+   margin-right: 20px;
+}
+.sitemap-section p{
+   display:flex;
+   justify-content: flex-end;
+}
+
+.sitemap-section h3 {
+   font-size: 18px;
+   color: #333;
+   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.sitemap-section ul {
+   list-style: none;
+   padding: 0;
+}
+
+.sitemap-section ul li {
+   margin-bottom: 8px;
+}
+
+.sitemap-section ul li a {
+   text-decoration: none;
+   color: #666;
+}
+
+.sitemap-section ul li a:hover {
+   color: #000;
+   text-decoration: underline;
+}
+
+/* Media Queries for Smaller Screens */
+@media (max-width: 768px) {
+   .top-menu {
+       flex-direction: column;
+       align-items: flex-start;
+   }
+
+   .logo-and-name {
+       margin-bottom: 10px;
+   }
+
+   .menu-buttons {
+       flex-direction: column;
+       align-items: flex-start;
+   }
+
+   .dropdown {
+       margin-right: 0;
+       margin-bottom: 10px;
+   }
+
+   .about a {
+       margin-right: 0;
+       margin-bottom: 10px;
+   }
+
+   .subtask1A {
+       flex-direction: column;
+   }
+
+   .table1, .table2, .table3 {
+       margin: 20px 0;
+   }
+
+   .SubtaskStart {
+       flex-direction: column;
+   }
+
+   .sitemap-footer {
+       flex-direction: column;
+       align-items: flex-start;
+   }
+
+   .sitemap-section {
+       margin-bottom: 20px;
+   }
+}

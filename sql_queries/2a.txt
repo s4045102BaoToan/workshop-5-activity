@@ -1,0 +1,46 @@
+    -------choose by world/global TODO please add measurement unit as degree celsius
+    
+    --display years available in "year" form(options)
+    select year from globaltemp
+    where AvgOceanLandTemp is not null;
+    --"to" form TODO: please add a java method to exclude the already chosen year on top from the "to" form
+    
+    --display changes in avgOceanLandTemp as RAW value
+    select start_year, end_year, ABS(temp_in_start_year - temp_in_end_year) as temp_change FROM
+    (
+    select gt.year as start_year, gt.AvgOceanLandTemp as temp_in_start_year
+    from globaltemp gt
+    where gt.year = '1851' and AvgOceanLandTemp is not null                  -- first year here
+    ),
+    (
+    select gt.year as end_year, gt.AvgOceanLandTemp as temp_in_end_year
+    from globaltemp gt
+    where gt.year = '1852' and AvgOceanLandTemp is not null                   -- second year here
+    );
+    
+    --available years for populations world
+    select distinct pyear from countrypopulation
+    ;
+    --display changes in population world
+    select start_year, end_year,floor(abs(avg_pop_start - avg_pop_end)) as avg_population_change from 
+    (select pyear as start_year, avg(population) as avg_pop_start from countrypopulation
+    where pyear = '1960'
+    ),
+    (select pyear as end_year, avg(population) as avg_pop_end from countrypopulation
+    where pyear = '2010' 
+    );
+    
+    --available countries to choose temperature 
+    Select distinct countryname from countrytemp;
+    --available years to choose from in countrytemp
+    select distinct cyear, countryname from countrytemp
+    order by (cyear);
+    --country temp
+    select abs(start_temp - end_temp) from 
+    (select avglandtemp as start_temp
+    from countrytemp
+    where cyear = '1750' and countryname = 'Albania' ),
+    (select avglandtemp as end_temp
+    from countrytemp
+    where cyear = '1751' and countryname = 'Albania')
+    ;

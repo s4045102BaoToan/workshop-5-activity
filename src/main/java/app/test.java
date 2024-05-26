@@ -145,8 +145,12 @@ public class test implements Handler {
                     System.out.println("Testing to get region :" + regions);
                     System.out.println("Testing to get starting year :" + startYear);
                     System.out.println("Testing to get period length :" + pLength);
+                    if(regions == null || startYear == null || pLength == null){
 
-                    System.out.println(outPutAVGTemp(regions, Integer.parseInt(startYear), Integer.parseInt(pLength)));
+                    }else{
+                        System.out.println(outPutAVGTemp(regions, Integer.parseInt(startYear), Integer.parseInt(pLength)));
+                    }
+                    
 
             html += html  + """
                 <body>
@@ -231,10 +235,10 @@ public class test implements Handler {
         JDBCConnection jdbc = new JDBCConnection();
         
 
-        ArrayList<Integer> outputAVG = jdbc.getArrayListOfYearsAndTempInPeriod(region, startYear, periodLength);
+        ArrayList<Double> outputAVG = jdbc.getArrayListOfYearsAndTempInPeriod(region, startYear, periodLength);
         
         String zzz = "";
-        for( int grr : outputAVG){
+        for( double grr : outputAVG){
             zzz = zzz + String.valueOf(grr) + ", ";
         }
         return zzz;

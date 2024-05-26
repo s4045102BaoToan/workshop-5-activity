@@ -917,8 +917,8 @@ public class JDBCConnection {
         return cities;
     }
 
-    public ArrayList<Integer> getArrayListOfYearsAndTempInPeriod(String region, int startYear, int periodLength){
-        ArrayList<Integer> yearAndTemp = new ArrayList<>();
+    public ArrayList<Double> getArrayListOfYearsAndTempInPeriod(String region, int startYear, int periodLength){
+        ArrayList<Double> yearAndTemp = new ArrayList<>();
         Connection connection = null;
         for(int i = 0; i < periodLength; i++){
         try {
@@ -932,8 +932,8 @@ public class JDBCConnection {
             ppstm.setInt(1, startYear + i);
             ResultSet resultSet = ppstm.executeQuery();
             while (resultSet.next()) {
-                yearAndTemp.add(resultSet.getInt("year"));
-                yearAndTemp.add(resultSet.getInt("avgoceanlandtemp"));
+                yearAndTemp.add(resultSet.getDouble("year"));
+                yearAndTemp.add(resultSet.getDouble("avgoceanlandtemp"));
             }
 
         } catch (SQLException e) {

@@ -827,7 +827,7 @@ public class JDBCConnection {
             connection = DriverManager.getConnection(DATABASE);
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
-            ResultSet resultSet = statement.executeQuery("SELECT  countryname FROM country");
+            ResultSet resultSet = statement.executeQuery("SELECT countryname FROM country");
             while (resultSet.next()) {
                 countries.add(resultSet.getString("countryname"));
             }
@@ -852,13 +852,11 @@ public class JDBCConnection {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(DATABASE);
-            Statement statement = connection.createStatement();
-            statement.setQueryTimeout(30);
             String query = """
                 SELECT statename
-                  FROM STATE CO
-                  JOIN COUNTRY ST ON CO.CountryID = ST.ID
-                  WHERE countryname = ?;;
+                FROM state
+                JOIN country ON state.countryid = country.id
+                WHERE countryname = ?;
             """;
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, countryname);
@@ -869,7 +867,6 @@ public class JDBCConnection {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         } finally {
-
             try {
                 if (connection != null) {
                     connection.close();
@@ -890,10 +887,10 @@ public class JDBCConnection {
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
             String query = """
-                SELECT cityname 
-                  FROM city CO 
-                  JOIN Country ST ON CO.CountryID = ST.ID
-                  WHERE Country = ?;
+                SELECT distinct cityname
+                FROM city
+                JOIN state ON city.countryid = state.countryid
+                WHERE statename = ?;
             """;
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, statename);
@@ -957,6 +954,6 @@ public class JDBCConnection {
 
 
 
-     
+    
     }
 

@@ -57,6 +57,9 @@ JDBCConnection jdbc = new JDBCConnection();
 if(a == null){
     html += "<p>NO DATA</p>";
 }
+
+
+
 else if (a.equals("Country")){
     
     html += "<form action='/period.html' method='post'>";
@@ -74,9 +77,18 @@ else if (a.equals("Country")){
                     html += "<option value=" + "'" + years + "'>" + years + "</option>"; 
                 }
     html +=         "</select>";
+    html +=     "<select id = 'yearLength' name ='yearLength'>";
+    html += "<option value='' selected disabled>Select year length</option>";
+                for(int i = 0; i<101; ++i){
+    html +=         "<option value=" + "'" + i + "'>" + i + "</option>";
+                }
+    html +=    "</select>";
     html +=        "<button type='submit'>Submit</button>";
     html +=    "</form>";
 }
+
+
+
  else if (a.equals("State")){
     html += "<form action='/period.html' method='post'>";
     html +=    "<select id='state' name = 'state'>";
@@ -86,15 +98,25 @@ else if (a.equals("Country")){
                         html += "<option value=" + "'" + stas.getState() + "'>" + stas.getCountry() + " - " + stas.getState() + "</option>";
                     }
     html +=    "</select>";
+    html +=     "<select id = 'startingYear' name ='startingYear'>";
     ArrayList<Integer> year = jdbc.getStateTempYear();
                 html += "<option value='' selected disabled>Select a starting year</option>";
                 for(Integer years : year ){
                     html += "<option value=" + "'" + years + "'>" + years + "</option>"; 
                 }
     html +=         "</select>";
+    html +=     "<select id = 'yearLength' name ='yearLength'>";
+    html += "<option value='' selected disabled>Select year length</option>";
+    for(int i = 0; i<101; ++i){
+html +=         "<option value=" + "'" + i + "'>" + i + "</option>";
+    }
+html +=    "</select>";
     html +=        "<button type='submit'>Submit</button>";
     html +=    "</form>";
                 }
+
+
+
  else if(a.equals("City")){
     html += "<form action='/period.html' method='post'>";
     html +=    "<select id='city' name = 'city'>";
@@ -104,17 +126,21 @@ else if (a.equals("Country")){
                         html += "<option>" + cit.get(i) + "</option>";
                     }
     html +=    "</select>";
+    html +=     "<select id = 'yearLength' name ='yearLength'>";
+    html += "<option value='' selected disabled>Select year length</option>";
+    for(int i = 0; i<101; ++i){
+html +=         "<option value=" + "'" + i + "'>" + i + "</option>";
+    }
+html +=    "</select>";
     html +=        "<button type='submit'>Submit</button>";
     html +=    "</form>";
  }
-System.out.println(a);
+System.out.println(a);             
+
+
 html += """
-</div>
-
-
-            
-            
-            <!--------------------------------------------------out put--------------------------------------------------->
+</div>      
+      <!--------------------------------------------------out put--------------------------------------------------->
             <body>
             <div>
             <table>

@@ -103,6 +103,7 @@ public class NEW implements Handler {
         
                         var regionSelect = document.createElement('select');
                         regionSelect.name = 'Regions';
+                        regionSelect.id = 'regionSelect' + i;
                         var regionOptions = ['Select a region', 'Global', 'Country', 'State', 'City'];
                         for (var j = 0; j < regionOptions.length; j++) {
                             var option = document.createElement('option');
@@ -146,6 +147,12 @@ public class NEW implements Handler {
                         formDiv.appendChild(form);
                         regionFormsDiv.appendChild(formDiv);
                     }
+        
+                    // Add a single submit button for all forms
+                    var submitButton = document.createElement('button');
+                    submitButton.type = 'submit';
+                    submitButton.textContent = 'Submit All';
+                    regionFormsDiv.appendChild(submitButton);
                 }
         
                 function createYearLengthInputs(selectElement) {
@@ -178,23 +185,25 @@ public class NEW implements Handler {
                     return options;
                 }
             </script>
+        </head>
+        <body>
             <div class='REGNUM'>
-            <form action='/AvgtempPopul.html' method='post' onsubmit="createRegionForms(); return false;">
-                <label for='RegionNums'>Number of regions</label>
-                <select id='RegionNums' name='RegionNums' onchange="createRegionForms()">
-                    <option value="" selected disabled>Select number of regions</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-                <button type='submit'>Submit</button>
-            </form>
-        </div>
-        <div id="regionForms">
-            <!-- Region forms will be dynamically created here -->
-        </div>
+                <form action='/AvgtempPopul.html' method='post' onsubmit="createRegionForms(); return false;">
+                    <label for='RegionNums'>Number of regions</label>
+                    <select id='RegionNums' name='RegionNums' onchange="createRegionForms()">
+                        <option value="" selected disabled>Select number of regions</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <button type='submit'>Generate Forms</button>
+                </form>
+            </div>
+            <div id="regionForms">
+                <!-- Region forms will be dynamically created here -->
+            </div>
         
         
             <!----------------------------------------------------------------------------------------------------------->

@@ -63,7 +63,7 @@ if(a == null){
 else if (a.equals("Country")){
     
     html += "<form action='/period.html' method='post'>";
-    html +=    "<select id='country' name = 'country'>";
+    html +=    "<select id='name' name = 'name'>";
     html +=        "<option value='' selected disabled>Select a country</option>";
                     ArrayList<String> ctr = jdbc.getCountries();
                     for(int i = 0; i < ctr.size(); ++i){
@@ -91,7 +91,14 @@ else if (a.equals("Country")){
         html +=         "<option value=" + "'" + i + "'>" + i + "</option>";
                     }
         html +=    "</select>";
-
+        html +=     "<select id = 'valueType' name ='valueType'>";
+        html += "<option value='' selected disabled>Select the type of value</option>";
+        html += """
+                <option value="avgtemp">Average temperature</option>;
+                <option value="population">Population</option>;
+                <option value="both">Average temperature & population</option>;
+                </select>
+                """;
 
     html +=        "<button type='submit'>Submit</button>";
     html +=    "</form>";
@@ -101,7 +108,7 @@ else if (a.equals("Country")){
 
  else if (a.equals("State")){
     html += "<form action='/period.html' method='post'>";
-    html +=    "<select id='state' name = 'state'>";
+    html +=    "<select id='name' name = 'name'>";
     html +=        "<option value='' selected disabled>Select a state</option>";
                     ArrayList<statee> sta = jdbc.getCountryState();
                     for( statee stas : sta){
@@ -135,7 +142,7 @@ html += "<option value='' selected disabled>Select a number</option>";
 
  else if(a.equals("City")){
     html += "<form action='/period.html' method='post'>";
-    html +=    "<select id='city' name = 'city'>";
+    html +=    "<select id='name' name = 'name'>";
     html +=        "<option value='' selected disabled>Select a city</option>";
                     ArrayList<cityy> cit = jdbc.getCountryCity();
                     for(cityy city : cit){
@@ -167,12 +174,16 @@ html +=    "</select>";
     html +=    "</form>";
  }
 System.out.println(a);             
-
+String region = context.formParam("name");
+String startYear = context.formParam("startingYear");
+String yearLength = context.formParam("yearLength");
+String x = context.formParam("x");
+String type = context.formParam("valueType");
 
 html += """
 </div>      
       <!--------------------------------------------------out put--------------------------------------------------->
-            <body>
+    
             <div>
             <table>
                 <h1>Results</h1>
@@ -191,98 +202,7 @@ html += """
             </table>
         </div>
         
-                    <table>
-                    <h1>Country 2</h1>
-                    <thead>
-                        <tr>
-                            <th>Country</th>
-                            <th>State</th>
-                            <th>City</th>
-                            <th>Average Temperature</th>
-                            <th>Average Population</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
-        
-                <table>
-                    <h1>Country 3</h1>
-                    <thead>
-                        <tr>
-                            <th>Country</th>
-                            <th>State</th>
-                            <th>City</th>
-                            <th>Average Temperature</th>
-                            <th>Average Population</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        
-                    </tbody>
-                    </table>
                     
-                    <table>
-                    <h1>Country 4</h1>
-                    <thead>
-                        <tr>
-                            <th>Country</th>
-                            <th>State</th>
-                            <th>City</th>
-                            <th>Average Temperature</th>
-                            <th>Average Population</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
-        
-                <table>
-                    <h1>Country 5</h1>
-                    <thead>
-                        <tr>
-                            <th>Country</th>
-                            <th>State</th>
-                            <th>City</th>
-                            <th>Average Temperature</th>
-                            <th>Average Population</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
-            </body> 
             
         
         

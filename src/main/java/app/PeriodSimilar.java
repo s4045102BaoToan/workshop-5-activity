@@ -53,6 +53,33 @@ function capitalizeFirstLetter(input) {
 }
 </script>
 
+<style>
+/* CSS cho phần input */
+.input-container {
+    margin-bottom: 20px;
+}
+
+.input-container input {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Đảm bảo rằng phần padding không làm thay đổi kích thước của input */
+    font-size: 16px;
+}
+
+.input-container select {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Đảm bảo rằng phần padding không làm thay đổi kích thước của input */
+    font-size: 16px;
+}
+
+</style>
+
+<div class='input-container'>
 <div class='test'>
     <form action='/period.html' method='post'>
         <select id='test' name = 'test'>
@@ -76,8 +103,7 @@ if(a == null){
 else if (a.equals("Country")){
     
     html += "<form action='/period.html' method='post'>";
-    html += "<label for='country'>Country:</label>";
-    html += "<input list='countryList' id='country' name='country' oninput='capitalizeFirstLetter(this)'>";
+    html += "<input list='countryList' id='country' name='country' placeholder='Select or type a country' oninput='capitalizeFirstLetter(this)'>";
     html += "<datalist id='countryList'>";
     ArrayList<String> ctr = jdbc.getCountries();
     for(int i = 0; i < ctr.size(); ++i) {
@@ -115,15 +141,16 @@ else if (a.equals("Country")){
                 """;
 
     html +=        "<button type='submit'>Submit</button>";
+    html += "</div>";
     html +=    "</form>";
+    
 }
 
 
 
  else if (a.equals("State")){
     html += "<form action='/period.html' method='post'>";
-    html += "<label for='state'>State:</label>";
-    html += "<input list='stateList' id='state' name='state' oninput='capitalizeFirstLetter(this)'>";
+    html += "<input list='stateList' id='state' name='state' placeholder='Select or type a state' oninput='capitalizeFirstLetter(this)'>";
     html += "<datalist id='stateList'>";
     html +=     "<option value='' selected disabled>Select a state</option>";
     ArrayList<statee> sta = jdbc.getCountryState();
@@ -158,8 +185,7 @@ html += "<option value='' selected disabled>Select a number</option>";
 
  else if(a.equals("City")){
     html += "<form action='/period.html' method='post'>";
-    html += "<label for='city'>City:</label>";
-    html += "<input list='cityList' id='city' name = 'city' oninput='capitalizeFirstLetter(this)'>";
+    html += "<input list='cityList' id='city' name = 'city' placeholder='Select or type a city' oninput='capitalizeFirstLetter(this)'>";
     html += "<datalist id='cityList'>";
     html += "<option value='' selected disabled>Select a city</option>";
                     ArrayList<cityy> cit = jdbc.getCountryCity();

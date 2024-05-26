@@ -367,6 +367,48 @@ public class JDBCConnection {
         return countryYearArrayList;
     }
 
+
+
+    public ArrayList<Integer> getCityYear() {
+        ArrayList<Integer> countryYearArrayList = new ArrayList<>();
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(DATABASE);
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);
+
+            String query = """
+                select distinct cityyear as cityyear from city ct
+                join country ctr on ct.countryid = ctr.id
+                join citytemp cttemp on ct.cityid = cttemp.cityid
+                order by cityyear;
+                     """;
+
+            ResultSet results = statement.executeQuery(query);
+            // Process all of the results
+            while (results.next()) {
+                countryYearArrayList.add(results.getInt("cityyear"));
+            }
+
+            statement.close();
+        } catch (SQLException e) {
+
+            System.err.println(e.getMessage());
+        } finally {
+
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                // connection close failed.
+                System.err.println(e.getMessage());
+            }
+        }
+
+        return countryYearArrayList;
+    }
+
     /*--------------------------------------------------------------------------------- */
 
     public ArrayList<Integer> getCountryYearPopul() {
@@ -1011,7 +1053,7 @@ public ArrayList<statee> getCountryState() {
         }
         return countryCity;
     }
-    
+
 
     
     }

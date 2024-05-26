@@ -83,6 +83,16 @@ else if (a.equals("Country")){
     html +=         "<option value=" + "'" + i + "'>" + i + "</option>";
                 }
     html +=    "</select>";
+
+
+    html +=     "<select id = 'x' name ='x'>";
+    html += "<option value='' selected disabled>Select a number</option>";
+                            for(int i = 0; i<21; ++i){
+        html +=         "<option value=" + "'" + i + "'>" + i + "</option>";
+                    }
+        html +=    "</select>";
+
+
     html +=        "<button type='submit'>Submit</button>";
     html +=    "</form>";
 }
@@ -111,6 +121,12 @@ else if (a.equals("Country")){
 html +=         "<option value=" + "'" + i + "'>" + i + "</option>";
     }
 html +=    "</select>";
+html +=     "<select id = 'x' name ='x'>";
+html += "<option value='' selected disabled>Select a number</option>";
+                        for(int i = 0; i<21; ++i){
+    html +=         "<option value=" + "'" + i + "'>" + i + "</option>";
+                }
+    html +=    "</select>";
     html +=        "<button type='submit'>Submit</button>";
     html +=    "</form>";
                 }
@@ -126,12 +142,27 @@ html +=    "</select>";
                         html += "<option value ='" + city.getCity() + "'>" + city.getCountry() + " - " + city.getCity() + "</option>";
                     }
     html +=    "</select>";
+    html +=     "<select id = 'startingYear' name ='startingYear'>";
+    ArrayList<Integer> year = jdbc.getCityYear();
+                html += "<option value='' selected disabled>Select a starting year</option>";
+                for(Integer years : year ){
+                    html += "<option value=" + "'" + years + "'>" + years + "</option>"; 
+                }
+    html +=         "</select>";
+    //
     html +=     "<select id = 'yearLength' name ='yearLength'>";
     html += "<option value='' selected disabled>Select year length</option>";
     for(int i = 0; i<101; ++i){
 html +=         "<option value=" + "'" + i + "'>" + i + "</option>";
     }
 html +=    "</select>";
+    //
+    html +=     "<select id = 'x' name ='x'>";
+    html += "<option value='' selected disabled>Select a number</option>";
+                            for(int i = 0; i<21; ++i){
+        html +=         "<option value=" + "'" + i + "'>" + i + "</option>";
+                    }
+        html +=    "</select>";
     html +=        "<button type='submit'>Submit</button>";
     html +=    "</form>";
  }

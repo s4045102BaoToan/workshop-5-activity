@@ -993,6 +993,54 @@ public class JDBCConnection {
     }
         return yeartempObjs;
     }
+
+public ArrayList<ctryInPeriod> getCountryTempPop(String countryname, int startyear, int periodLength){
+    ArrayList<ctryInPeriod> ctryInPeriods = new ArrayList<ctryInPeriod>();
+    Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(DATABASE);
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);
+            String query = """
+                select ctr.countryname, avg(ctrtemp.avglandtemp) as temperature, avg(ppl.population) as population from country ctr
+                join countrytemp ctrtemp on ctr.id = ctrtemp.countryid
+                join population ppl on ctr.id = ppl.countryid
+                where countryname = ?
+                and cyear between ? and ?
+                and pyear between ? and ?
+;
+            """;
+            PreparedStatement pstm = connection.prepareStatement(query);
+            pstm.setString(1, countryname);
+            pstm.setInt(2, startyear);
+            pstm.setInt(3, startyear + periodLength);
+            pstm.setInt(4, startyear);
+            pstm.setInt(5, startyear + periodLength);
+            ResultSet resultSet = pstm.executeQuery();
+            while (resultSet.next()) {
+                String name = resultSet.getString("countryname");
+                double temp = resultSet.getDouble("temperature");
+                long population = resultSet.getLong("population");
+
+                ctryInPeriod ctrp = new ctryInPeriod(name, temp, population);
+                ctryInPeriods.add(ctrp);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                // connection close failed.
+                System.err.println(e.getMessage());
+            }
+        }
+        return ctryInPeriods;
+    }
+
  
 public ArrayList<statee> getCountryState() {
         ArrayList<statee> countryState = new ArrayList<statee>();

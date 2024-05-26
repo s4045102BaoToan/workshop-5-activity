@@ -167,14 +167,13 @@ public class NEW implements Handler {
                         startingYearSelect.name = 'startingYear' + i;
                         startingYearSelect.innerHTML = generateYearOptions();
                         yearLengthsDiv.appendChild(startingYearSelect);
-        
-                        var input = document.createElement('input');
+                    }
+                    var input = document.createElement('input');
                         input.type = 'number';
-                        input.name = 'yearLength' + i;
-                        input.placeholder = 'Enter year length for period ' + i;
+                        input.name = 'yearLength';
+                        input.placeholder = 'Enter year length for period ';
                         yearLengthsDiv.appendChild(input);
                         yearLengthsDiv.appendChild(document.createElement('br'));
-                    }
                 }
         
                 function generateYearOptions() {

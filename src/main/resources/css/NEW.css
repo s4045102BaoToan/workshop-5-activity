@@ -342,7 +342,7 @@ form {
 .REGNUM #RegionNums{
     width: fit-content;
 }
-.REGS #regionSelect0, #regionSelect2,#regionSelect3, #regionSelect4, #regionSelect1{
+ #regionSelect0, #regionSelect2,#regionSelect3, #regionSelect4, #regionSelect1{
     width: fit-content;
 }
 .periods #periods0, #periods1, #periods2, #periods3, #periods4{

@@ -78,8 +78,6 @@ public class NEW implements Handler {
             
             <!----------------------------------------------------CONTENT------------------------------------------------------>
             
-            <title>Select Number of Regions and Periods</title>
-            <script src="/script.js"></script>
             <script> 
             
             function createRegionForms() {
@@ -92,15 +90,13 @@ public class NEW implements Handler {
                 var form = document.createElement('form');
                     form.action = '/NEW.html';
                     form.method = 'post';
-
-
-
-                for (var i = 0; i < numberOfRegions; i++) {
+                    
                     var formDiv = document.createElement('div');
                     formDiv.className = 'REGS';
-    
+
+                for (var i = 0; i < numberOfRegions; i++) {
+                
                     
-    
                     var hiddenInput = document.createElement('input');
                     hiddenInput.type = 'hidden';
                     hiddenInput.name = 'regionNum';
@@ -108,11 +104,12 @@ public class NEW implements Handler {
                     form.appendChild(hiddenInput);
     
                     var regionSelect = document.createElement('select');
-                    regionSelect.name = 'Regions';
+                    regionSelect.name = 'regionSelect' + i;
                     regionSelect.id = 'regionSelect' + i;
                     var regionOptions = ['Select a region', 'Global', 'Country', 'State', 'City'];
 
                     for (var j = 0; j < regionOptions.length; j++) {
+
                         var option = document.createElement('option');
                         option.value = regionOptions[j];
                         option.text = regionOptions[j];
@@ -166,28 +163,36 @@ public class NEW implements Handler {
                 submitButton.type = 'submit';
                 submitButton.textContent = 'Submit All';
                 form.appendChild(submitButton);
+                regionFormsDiv.appendChild(form);
+
+
+                var input = document.createElement('input');
+                    input.type = 'number';
+                    input.name = 'yearLength';
+                    input.id =  'yearLength';
+                    input.placeholder = 'Enter year length';
+                    form.appendChild(input);
+                  
             }
-    
+            
             function createYearLengthInputs(selectElement) {
                 var numberOfPeriods = selectElement.value;
                 var yearLengthsDiv = document.getElementById('yearLengths' + selectElement.id.replace('periods', ''));
     
                 // Clear any existing input boxes
                 yearLengthsDiv.innerHTML = '';
-                selectElement.name = 'Period length';
+                selectElement.name = 'periodLength' + selectElement.id.replace('periods', '');
+                var parentRegionIndex = selectElement.id.replace('periods', '');
+        
+                
                 for (var i = 1; i <= numberOfPeriods; i++) {
+                   
                     var startingYearSelect = document.createElement('select');
-                    startingYearSelect.name = 'startingYear' + i;
-                    startingYearSelect.id = 'startingYear' + i;
+                    startingYearSelect.name = 'startingYear' + parentRegionIndex + '_' + i;
+                    startingYearSelect.id = 'startingYear' + parentRegionIndex + '_' + i;
                     startingYearSelect.innerHTML = generateYearOptions();
                     yearLengthsDiv.appendChild(startingYearSelect);
                 }
-                var input = document.createElement('input');
-                    input.type = 'number';
-                    input.name = 'yearLength';
-                    input.placeholder = 'Enter year length';
-                    yearLengthsDiv.appendChild(input);
-                    yearLengthsDiv.appendChild(document.createElement('br'));
             }
             
             function generateYearOptions() {
@@ -208,6 +213,7 @@ public class NEW implements Handler {
             <div class='REGNUM'>
               
                     <label for='RegionNums'>Number of regions</label>
+                    <form action = "/NEW.html" method="post">
                     <select id='RegionNums' name='RegionNums' onchange="createRegionForms()">
                         <option value="" selected disabled>Select number of regions</option>
                         <option value="1">1</option>
@@ -216,6 +222,7 @@ public class NEW implements Handler {
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
+                    </form>
             
             </div>
             
@@ -223,16 +230,47 @@ public class NEW implements Handler {
                 <!-- Region forms will be dynamically created here -->
             </div>
           """;
-            ArrayList<String> region = new ArrayList<>();
-            for(int i = 1; i <6 ; ++i){
-                String regions = "\"";
-                regions += "regionSelect" + i;
-                regions += "\"";
-                System.out.print(regions);
-                region.add(context.formParam(regions));
-            }
-            
-            System.out.println(region);
+            String region1 = context.formParam("regionSelect0");
+            String region2 = context.formParam("regionSelect1");
+            String region3 = context.formParam("regionSelect2");
+            String region4 = context.formParam("regionSelect3");
+            String region5 = context.formParam("regionSelect4");
+             
+
+            String period0_1 = context.formParam("startingYear0_1");
+            String period0_2 = context.formParam("startingYear0_2");
+            String period0_3 = context.formParam("startingYear0_3");
+            String period0_4 = context.formParam("startingYear0_4");
+            String period0_5 = context.formParam("startingYear0_5");
+
+            String period1_1 = context.formParam("startingYear1_1");
+            String period1_2 = context.formParam("startingYear1_2");
+            String period1_3 = context.formParam("startingYear1_3");
+            String period1_4 = context.formParam("startingYear1_4");
+            String period1_5 = context.formParam("startingYear1_5");
+
+            String period2_1= context.formParam("startingYear2_1");
+            String period2_2 = context.formParam("startingYear2_2");
+            String period2_3 = context.formParam("startingYear2_3");
+            String period2_4 = context.formParam("startingYear2_4");
+            String period2_5 = context.formParam("startingYear2_5");
+
+            String period3_1 = context.formParam("startingYear3_1");
+            String period3_2 = context.formParam("startingYear3_2");
+            String period3_3 = context.formParam("startingYear3_3");
+            String period3_4 = context.formParam("startingYear3_4");
+            String period3_5 = context.formParam("startingYear3_5");
+
+            String period4_1 = context.formParam("startingYear4_1");
+            String period4_2 = context.formParam("startingYear4_2");
+            String period4_3 = context.formParam("startingYear4_3");
+            String period4_4 = context.formParam("startingYear4_4");
+            String period4_5 = context.formParam("startingYear4_5");
+
+            String yearLength = context.formParam("yearLength");
+
+
+          
             
 
 

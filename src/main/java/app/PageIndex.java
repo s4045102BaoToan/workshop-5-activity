@@ -48,6 +48,7 @@ public class PageIndex implements Handler {
                             <a href="State.html">State</a>
                             <a href="City.html">City</a>
                             <a href="test.html">Test</a>
+                            <a href="NEW.html">NEW</a>
                         </div>
                     </div>
                     <div class="dropdown">

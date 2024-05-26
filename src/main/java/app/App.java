@@ -48,6 +48,7 @@ public class App {
         app.get(AVGTemp.URL, new AVGTemp());
         app.get(PeriodSimilar.URL, new PeriodSimilar());
         app.get(test.URL, new test());
+        app.get(NEW.URL, new NEW());
 
         //post 
         app.post(Global.URL, new Global());
@@ -57,6 +58,7 @@ public class App {
         app.post(City.URL, new City());
         app.post(PeriodSimilar.URL, new PeriodSimilar());
         app.post(test.URL, new test());
+        app.post(NEW.URL, new NEW());
     }
         
 

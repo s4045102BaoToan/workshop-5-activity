@@ -149,6 +149,7 @@ public class test implements Handler {
 
                     }else{
                         System.out.println(outPutAVGTemp(regions, Integer.parseInt(startYear), Integer.parseInt(pLength)));
+                        html = html + outPutAVGTemp(regions, Integer.parseInt(startYear), Integer.parseInt(pLength));
                     }
                     
 
@@ -235,12 +236,23 @@ public class test implements Handler {
         JDBCConnection jdbc = new JDBCConnection();
         
 
-        ArrayList<Double> outputAVG = jdbc.getArrayListOfYearsAndTempInPeriod(region, startYear, periodLength);
+        ArrayList<year_temp> outputAVG = jdbc.getArrayListOfYearsAndTempInPeriod(region, startYear, periodLength);
         
         String zzz = "";
-        for( double grr : outputAVG){
-            zzz = zzz + String.valueOf(grr) + ", ";
+        double avg = 0.0;
+        double divideBy = 1.0;
+        zzz+= "<table>" + "<tr><th>Year</th><th>Temperature</th></tr>";
+        for( year_temp grr : outputAVG){
+            zzz+="<tr>" +
+                    "<td>" + grr.getYear() + "</td>" +
+                    "<td>" + grr.getTemp() + "</td>" +
+                "</tr>";
+                avg+= grr.getTemp();
+                divideBy++;
         }
+        zzz+="</tr></table>";
+        avg = avg / divideBy;
+        zzz+="<h1>The average temperature within the period is: " + avg + "</h1>";
         return zzz;
     }
 

@@ -86,6 +86,12 @@ else if (a.equals("Country")){
                         html += "<option value=" + "'" + stas.getState() + "'>" + stas.getCountry() + " - " + stas.getState() + "</option>";
                     }
     html +=    "</select>";
+    ArrayList<Integer> year = jdbc.getStateTempYear();
+                html += "<option value='' selected disabled>Select a starting year</option>";
+                for(Integer years : year ){
+                    html += "<option value=" + "'" + years + "'>" + years + "</option>"; 
+                }
+    html +=         "</select>";
     html +=        "<button type='submit'>Submit</button>";
     html +=    "</form>";
                 }

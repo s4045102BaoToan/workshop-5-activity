@@ -92,10 +92,10 @@ else if (a.equals("Country")){
  else if(a.equals("City")){
     html += "<form action='/period.html' method='post'>";
     html +=    "<select id='city' name = 'city'>";
-    html +=        "<option value='' selected disabled>Select a state</option>";
-                    ArrayList<String> cit = jdbc.getCountries();
-                    for(int i = 0; i < cit.size(); ++i){
-                        html += "<option>" + cit.get(i) + "</option>";
+    html +=        "<option value='' selected disabled>Select a city</option>";
+                    ArrayList<cityy> cit = jdbc.getCountryCity();
+                    for(cityy city : cit){
+                        html += "<option value ='" + city.getCity() + "'>" + city.getCountry() + " - " + city.getCity() + "</option>";
                     }
     html +=    "</select>";
     html +=        "<button type='submit'>Submit</button>";

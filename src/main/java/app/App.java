@@ -18,12 +18,14 @@ public class App {
     public static final int         JAVALIN_PORT    = 7001;
     public static final String      CSS_DIR         = "css/";
     public static final String      IMAGES_DIR      = "images/";
+    public static final String      JS_DIR          = "js/";
 
     public static void main(String[] args) {
         // Create our HTTP server and listen in port 7000
        
         Javalin app = Javalin.create(config -> {
             config.registerPlugin(new RouteOverviewPlugin("/help/routes"));
+            config.addStaticFiles(JS_DIR);
             
             // Uncomment this if you have files in the CSS Directory
             config.addStaticFiles(CSS_DIR);
@@ -49,7 +51,7 @@ public class App {
         app.get(PeriodSimilar.URL, new PeriodSimilar());
         app.get(test.URL, new test());
         app.get(NEW.URL, new NEW());
-
+        
         //post 
         app.post(Global.URL, new Global());
         app.post(Country.URL, new Country());

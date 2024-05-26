@@ -219,6 +219,18 @@ html += """
                 </tbody>
             </table>
         </div>
+        <div> """;
+        ArrayList<String> ctr = jdbc.getCountries();
+
+        for(int i = 0; i < ctr.size(); ++i) {
+            String inputname = ctr.get(i);
+            ArrayList<ctryInPeriod> Country = new ArrayList<>();
+            
+        }
+
+
+
+            html+="""
         
                     
             
@@ -276,7 +288,14 @@ html += """
         // Makes Javalin render the webpage
         context.html(html);
     }
+    public ArrayList<ctryInPeriod> outputCountry(String name, int startyear, int plength){
+        JDBCConnection jdbc = new JDBCConnection();
 
-    
+        ArrayList<ctryInPeriod> countries = jdbc.getCountryTempPop(name, startyear, plength);
+            for(ctryInPeriod ctries : countries){
+                countries.add(ctries);
+            }
+            return countries;
+    }
 
 }

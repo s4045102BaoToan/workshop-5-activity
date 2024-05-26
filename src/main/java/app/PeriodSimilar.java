@@ -29,10 +29,8 @@ public class PeriodSimilar implements Handler {
     @Override
     public void handle(Context context) throws Exception {
         // Create a simple HTML webpage in a String
-        String html = "<html>";
-
-        // Add some Head information
-        html = html + """
+        String html = """
+            
             <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,35 +41,53 @@ public class PeriodSimilar implements Handler {
 <!------------------------------------------Script--------------------------------------------------------->
 
             <script>
-                // Function to fetch and update states based on selected country
+            document.addEventListener("DOMContentLoaded", function() {
+                const countrySelect = document.getElementById("country");
+                const stateSelect = document.getElementById("state");
+                const citySelect = document.getElementById("city");
+            
+                // Function to fetch data from server
+                function fetchData(url, callback) {
+                    fetch(url)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => callback(data))
+                        .catch(error => console.error('Error fetching data:', error));
+                }
+            
+                // Function to update states dropdown based on selected country
                 function updateStates() {
-                    var country = document.getElementById("country").value;
-                    fetch('/getStates?country=' + country)
-                        .then(response => response.json())
-                        .then(states => {
-                            var stateSelect = document.getElementById("state");
-                            var citySelect = document.getElementById("city");
-                            stateSelect.innerHTML = "<option value='' selected disabled>Select a state</option>";
-                            citySelect.innerHTML = "<option value='' selected disabled>Select a city</option>";
-                            states.forEach(state => {
-                                stateSelect.innerHTML += "<option value='" + state + "'>" + state + "</option>";
-                            });
+                    const selectedCountry = countrySelect.value;
+                    fetchData(`/getStates?country=${selectedCountry}`, function(states) {
+                        stateSelect.innerHTML = "<option value='' selected disabled>Select a state</option>";
+                        citySelect.innerHTML = "<option value='' selected disabled>Select a city</option>";
+                        states.forEach(state => {
+                            stateSelect.innerHTML += `<option value='${state}'>${state}</option>`;
                         });
+                    });
                 }
-
-                // Function to fetch and update cities based on selected state
+            
+                // Function to update cities dropdown based on selected state and country
                 function updateCities() {
-                    var state = document.getElementById("state").value;
-                    fetch('/getCities?state=' + state)
-                        .then(response => response.json())
-                        .then(cities => {
-                            var citySelect = document.getElementById("city");
-                            citySelect.innerHTML = "<option value='' selected disabled>Select a city</option>";
-                            cities.forEach(city => {
-                                citySelect.innerHTML += "<option value='" + city + "'>" + city + "</option>";
-                            });
+                    const selectedCountry = countrySelect.value;
+                    const selectedState = stateSelect.value;
+                    fetchData(`/getCities?country=${selectedCountry}&state=${selectedState}`, function(cities) {
+                        citySelect.innerHTML = "<option value='' selected disabled>Select a city</option>";
+                        cities.forEach(city => {
+                            citySelect.innerHTML += `<option value='${city}'>${city}</option>`;
                         });
+                    });
                 }
+            
+                // Attach event listeners
+                countrySelect.addEventListener("change", updateStates);
+                stateSelect.addEventListener("change", updateCities);
+            });
+            
             </script>
             
         </head>
@@ -118,7 +134,7 @@ public class PeriodSimilar implements Handler {
                                         <tr>
                                             <td>Country</td>
                                             <td>
-                                                <select name="country" id="country" onchange="updateStates()">
+                                                <select name="country" id="country" onchange="updateStates('country', 'state')">
                                                     <option value="" selected disabled>Select a country</option>""";
                                                             ArrayList<String> ctrName = jdbc.getCountries();
                                                             for (String country : ctrName) {
@@ -384,5 +400,7 @@ public class PeriodSimilar implements Handler {
         // Makes Javalin render the webpage
         context.html(html);
     }
+
+    
 
 }

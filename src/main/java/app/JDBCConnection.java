@@ -232,6 +232,39 @@ public class JDBCConnection {
 
         return globalYearArrayList;
     }
+    public ArrayList<Integer> getYearNumbGlobalNotNull() {
+        ArrayList<Integer> gYearNotNul = new ArrayList<>();
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(DATABASE);
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);
+
+            String query = "select * from globaltemp where avgoceanlandtemp != ''";
+            ResultSet results = statement.executeQuery(query);
+            // Process all of the results
+            while (results.next()) {
+                gYearNotNul.add(results.getInt("Year"));
+            }
+
+            statement.close();
+        } catch (SQLException e) {
+
+            System.err.println(e.getMessage());
+        } finally {
+
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                // connection close failed.
+                System.err.println(e.getMessage());
+            }
+        }
+
+        return gYearNotNul;
+    }
 
     public ArrayList<Long> getPopChangeBySyearandEyear(int Syear, int Eyear) {
         ArrayList<Long> popChange = new ArrayList<>();
@@ -883,4 +916,41 @@ public class JDBCConnection {
         }
         return cities;
     }
-}
+
+    public ArrayList<Integer> getArrayListOfYearsAndTempInPeriod(String region, int startYear, int periodLength){
+        ArrayList<Integer> yearAndTemp = new ArrayList<>();
+        Connection connection = null;
+        for(int i = 0; i < periodLength; i++){
+        try {
+            connection = DriverManager.getConnection(DATABASE);
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);
+            String query = """
+                select year, avgoceanlandtemp from globaltemp where avgoceanlandtemp != '' and year = ?;
+            """;
+            PreparedStatement ppstm = connection.prepareStatement(query);
+            ppstm.setInt(1, startYear + i);
+            ResultSet resultSet = ppstm.executeQuery();
+            while (resultSet.next()) {
+                yearAndTemp.add(resultSet.getInt("year"));
+                yearAndTemp.add(resultSet.getInt("avgoceanlandtemp"));
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                // connection close failed.
+                System.err.println(e.getMessage());
+            }
+        }
+    }
+        return yearAndTemp;
+    }
+    }
+

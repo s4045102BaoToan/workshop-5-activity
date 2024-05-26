@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Forms</title>
+<script>
+    function generateForms() {
+        var numberOfForms = parseInt(document.getElementById("numberOfForms").value);
+        var formContainer = document.getElementById("formContainer");
+        formContainer.innerHTML = ""; // Clear existing forms
+        
+        for (var i = 0; i < numberOfForms; i++) {
+            var form = document.createElement("form");
+            form.innerHTML = "<label>Form " + (i + 1) + ":</label>" +
+                              "<input type='text' name='field" + (i + 1) + "'><br>";
+            formContainer.appendChild(form);
+        }
+        
+        // Add submit button
+        var submitButton = document.createElement("button");
+        submitButton.type = "submit";
+        submitButton.textContent = "Submit";
+        formContainer.appendChild(submitButton);
+    }
+</script>
+</head>
+<body>
+    <label for="numberOfForms">Choose number of forms (1-5):</label>
+    <select id="numberOfForms" onchange="generateForms()">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    
+    <div id="formContainer"></div>
+</body>
+</html>

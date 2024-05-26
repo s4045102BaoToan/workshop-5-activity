@@ -47,6 +47,7 @@ public class App {
         app.get(City.URL, new City());
         app.get(AVGTemp.URL, new AVGTemp());
         app.get(PeriodSimilar.URL, new PeriodSimilar());
+        app.get(test.URL, new test());
 
         //post 
         app.post(Global.URL, new Global());

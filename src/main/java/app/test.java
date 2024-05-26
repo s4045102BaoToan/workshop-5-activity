@@ -102,21 +102,52 @@ public class test implements Handler {
                     }
                     else {
                         html += "<div class='regions'>";
-                    for(int i=0;i<Integer.parseInt(regNum);++i){
-                        html += "<form>";
-                        html += "<select id='regions' name='regions'>";
+                    for(int i=0 ;i<Integer.parseInt(regNum);++i){
+                        html += "<form action= '/test.html' method = 'post'>";
+                        html+="<label for = 'regions'>Region<label>";
+                        html += "<select id='regions' name='regions' >";
                         html += "<option value='' selected disabled>Select a region</option>";
                         html += "<option>Global</option>";
                         html += "<option>Country</option>";
                         html += "<option>State</option>";
                         html += "<option>City</option>";
+                        html += "</select><br>";
+                        html+="<label for='startyear'>Start year</label>";
+                        html+= "<select id ='startyear' name = 'startyear'>";
+                        html+="<option select disabled>Please select a start year<option>";
+                        JDBCConnection jdbc = new JDBCConnection();
+                        ArrayList<Integer> yearArray = jdbc.getYearNumbGlobalNotNull();
+                        for(int year : yearArray){
+                            html += "<option>"+ year +"</option>";
+                        }
+                        html +="</select><br>";
                         
-                       
+                        html+="<label for='period_length'>Length of period </label>";
+                        html += "<select id='period_length' name = 'period_length'>" ;
+                        
+                        html += "<option select disabled>Please choose the length of the period</option>";
+                        html+="";
+                        for(int z = 1; z < 6; z++){
+                            html+="<option>"+ z +"</option>";
+                        }
+                        html += "</select><br>";
+                        
                     }       
-                    html += "</select><button type='submit'>Submit</button>"; 
+                    html += "</select>   <button type='submit'>Submit</button>"; 
                     html += "</form>";
                     html += "</div>";
                     }
+
+                    String regions = context.formParam("regions");
+                    String startYear = context.formParam("startyear");
+                    String pLength = context.formParam("period_length");
+
+                    System.out.println("Testing to get region :" + regions);
+                    System.out.println("Testing to get starting year :" + startYear);
+                    System.out.println("Testing to get period length :" + pLength);
+
+                    System.out.println(outPutAVGTemp(regions, Integer.parseInt(startYear), Integer.parseInt(pLength)));
+
             html += html  + """
                 <body>
                     <table>
@@ -195,6 +226,18 @@ public class test implements Handler {
         // DO NOT MODIFY THIS
         // Makes Javalin render the webpage
         context.html(html);
+    }
+    public String outPutAVGTemp(String region, int startYear, int periodLength){
+        JDBCConnection jdbc = new JDBCConnection();
+        
+
+        ArrayList<Integer> outputAVG = jdbc.getArrayListOfYearsAndTempInPeriod(region, startYear, periodLength);
+        
+        String zzz = "";
+        for( int grr : outputAVG){
+            zzz = zzz + String.valueOf(grr) + ", ";
+        }
+        return zzz;
     }
 
 }

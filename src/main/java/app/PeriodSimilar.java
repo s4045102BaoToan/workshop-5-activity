@@ -40,55 +40,120 @@ public class PeriodSimilar implements Handler {
 
 <!------------------------------------------Script--------------------------------------------------------->
 
+<style>
+                .hidden {
+                    display: none;
+                }
+            </style>
+
             <script>
             document.addEventListener("DOMContentLoaded", function() {
                 const countrySelect = document.getElementById("country");
                 const stateSelect = document.getElementById("state");
                 const citySelect = document.getElementById("city");
+                const stateContainer = document.getElementById("state-container");
+                const cityContainer = document.getElementById("city-container");
             
-                // Function to fetch data from server
-                function fetchData(url, callback) {
-                    fetch(url)
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            return response.json();
-                        })
-                        .then(data => callback(data))
-                        .catch(error => console.error('Error fetching data:', error));
-                }
-            
-                // Function to update states dropdown based on selected country
                 function updateStates() {
                     const selectedCountry = countrySelect.value;
-                    fetchData(`/getStates?country=${selectedCountry}`, function(states) {
-                        stateSelect.innerHTML = "<option value='' selected disabled>Select a state</option>";
-                        citySelect.innerHTML = "<option value='' selected disabled>Select a city</option>";
-                        states.forEach(state => {
-                            stateSelect.innerHTML += `<option value='${state}'>${state}</option>`;
+                    if (selectedCountry) {
+                        stateContainer.classList.remove("hidden");
+                        cityContainer.classList.add("hidden");
+                        fetchData(`/getStates?country=${selectedCountry}`, function(states) {
+                            stateSelect.innerHTML = "<option value='' selected disabled>Select a state</option>";
+                            citySelect.innerHTML = "<option value='' selected disabled>Select a city</option>";
+                            states.forEach(state => {
+                                stateSelect.innerHTML += `<option value='${state}'>${state}</option>`;
+                            });
                         });
-                    });
+                    }
                 }
             
-                // Function to update cities dropdown based on selected state and country
                 function updateCities() {
                     const selectedCountry = countrySelect.value;
                     const selectedState = stateSelect.value;
-                    fetchData(`/getCities?country=${selectedCountry}&state=${selectedState}`, function(cities) {
-                        citySelect.innerHTML = "<option value='' selected disabled>Select a city</option>";
-                        cities.forEach(city => {
-                            citySelect.innerHTML += `<option value='${city}'>${city}</option>`;
+                    if (selectedState) {
+                        cityContainer.classList.remove("hidden");
+                        fetchData(`/getCities?country=${selectedCountry}&state=${selectedState}`, function(cities) {
+                            citySelect.innerHTML = "<option value='' selected disabled>Select a city</option>";
+                            cities.forEach(city => {
+                                citySelect.innerHTML += `<option value='${city}'>${city}</option>`;
+                            });
                         });
-                    });
+                    }
                 }
             
-                // Attach event listeners
-                countrySelect.addEventListener("change", updateStates);
+                countrySelect.addEventListener("change", function() {
+                    updateStates();
+                    updateCities();
+                });
                 stateSelect.addEventListener("change", updateCities);
             });
             
-            </script>
+            function fetchData(url, callback) {
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => callback(data))
+                    .catch(error => console.error('Error fetching data:', error));
+            }
+            
+            
+            
+            <!------------------------------------------Year----------------------->
+            
+            function updatePeriodLength(startYearSelectId, periodLengthSelectId) {
+                var startYearSelect = document.getElementById(startYearSelectId);
+                var selectedStartYear = parseInt(startYearSelect.value);
+                var periodLengthSelect = document.getElementById(periodLengthSelectId);
+                var periodLengthOptions = [5, 10, 15]; // Độ dài các khoảng thời gian tương đương
+            
+                // Xóa các tùy chọn trước đó
+                periodLengthSelect.innerHTML = "";
+            
+                // Tạo các tùy chọn mới dựa trên năm bắt đầu và các khoảng thời gian tương đương
+                periodLengthOptions.forEach(function(period) {
+                    if (selectedStartYear + period <= new Date().getFullYear()) {
+                        var option = document.createElement("option");
+                        option.text = period;
+                        option.value = period;
+                        periodLengthSelect.add(option);
+                    }
+                });
+            }
+
+            <!---------------------------------------------------------------------------->
+
+            function updatePeriodSimilarOptions(startYearSelectId, periodYearSelectId, periodSimilarSelectId) {
+                var startYearSelect = document.getElementById(startYearSelectId);
+                var periodYearSelect = document.getElementById(periodYearSelectId);
+                var periodSimilarSelect = document.getElementById(periodSimilarSelectId);
+            
+                var selectedStartYear = startYearSelect.value ? parseInt(startYearSelect.value) : new Date().getFullYear(); // Sử dụng năm hiện tại nếu không có năm bắt đầu được chọn
+                var selectedPeriodYear = periodYearSelect.value ? parseInt(periodYearSelect.value) : 0; // Sử dụng 0 nếu không có năm kết thúc được chọn
+            
+                // Clear previous options
+                periodSimilarSelect.innerHTML = "";
+            
+                // Add options based on selected start year and period year
+                for (var i = selectedStartYear + selectedPeriodYear; i >= selectedStartYear; i--) {
+                    var option = document.createElement("option");
+                    option.text = i - selectedStartYear;
+                    option.value = i - selectedStartYear;
+                    periodSimilarSelect.add(option);
+                }
+            }
+
+            window.onload = function() {
+                updatePeriodSimilarOptions('startYear', 'periodYear', 'periodSimilarSelect');
+            };
+            
+            
+</script>
             
         </head>
         <body>
@@ -143,7 +208,8 @@ public class PeriodSimilar implements Handler {
                                                             html += """
                                                 </select>
                                             </td>
-                                        
+                                        </tr>
+                                        <tr id="state-container" class="hidden">
                                             <td>State</td>
                                             <td>
                                             <select name="state" id="state" onchange="updateCities()">
@@ -158,21 +224,11 @@ public class PeriodSimilar implements Handler {
                                         html += """
                                         </select>
                                     </td>
-                                  
+                                    </tr>
+                                    <tr id="city-container" class="hidden">
                                           
                             
-                            
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sort by</td>
-                                            <td>
-                                                <select name="sort by">
-                                                    <option value="#">Option</option>
-                                                    <option value="#">Averange population</option>
-                                                    <option value="#">Averange temperature</option>
-                                                </select>
-                                                <td>City</td>
+                                            <td>City</td>
                                             <td>
                                             <select name="city" id="city">
                                             <option value="" selected disabled>Select a city</option>""";
@@ -187,23 +243,24 @@ public class PeriodSimilar implements Handler {
                                             html += """
                                         </select>    
                                     </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Number years period similiar</td>
+                                       
+                                            <td>Sort by</td>
                                             <td>
-                                                <select name="Number years period similiar">
+                                                <select name="sort by">
                                                     <option value="#">Option</option>
-                                                    
+                                                    <option value="#">Averange population</option>
+                                                    <option value="#">Averange temperature</option>
                                                 </select>
                                             </td>
                                         </tr>
+                                        
                                         <tr>
                                             <td>Start year</td>
                                             <td>
-                                                <select name="Start Year">
+                                            <select id="startYear" name="Start Year" onchange="updatePeriodLength('startYear', 'periodYear'); updatePeriodSimilarOptions('startYear', 'periodYear', 'periodSimilarSelect')">
                                                     <option value="" selected disabled>Select a year</option>""";
-                                                ArrayList<Integer>PerYear = jdbc.getYearPeriod();
-                                                for (Integer perYear : PerYear) {
+                                                ArrayList<Integer>StarYear = jdbc.getYearPeriod();
+                                                for (Integer perYear : StarYear) {
                                                     html += "<option>" + perYear + "</option>";
                                                 }         
                                                     //<option value="#">Option</option>
@@ -212,11 +269,20 @@ public class PeriodSimilar implements Handler {
                                                 </select>
                                                   
                                             </td>
-                                            <td>Period length</td>
+                                            <td>Number years period similiar</td>
                                             <td>
-                                                <select name="Year">
-                                                    <option value="#">Option</option>
-                            
+                                            <select id="periodYear" name="Period Year" onchange="updatePeriodSimilarOptions('startYear', 'periodYear', 'periodSimilarSelect')">
+                                                    <option value="" selected disabled>Select a year</option>""";
+        
+                                                    ArrayList<Integer>PerYear = jdbc.getYearPeriod();
+                                                for (Integer perYear : PerYear) {
+                                                    html += "<option>" + perYear + "</option>";
+                                                }         
+                                                    //<option value="#">Option</option>
+                                                    
+                                                html += """
+                                                
+                                                </select>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -230,28 +296,23 @@ public class PeriodSimilar implements Handler {
             
             <!--------------------------------------------------out put--------------------------------------------------->
             <body>
-                <table>
-                    <h1>Country 1</h1>
-                    <thead>
-                        <tr>
-                            <th>Country</th>
-                            <th>State</th>
-                            <th>City</th>
-                            <th>Average Temperature</th>
-                            <th>Average Population</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        
-                    </tbody>
-                    </table>
+            <div>
+            <table>
+                <h1>Results</h1>
+                <thead>
+                    <tr>
+                        <th>Country</th>
+                        <th>State</th>
+                        <th>City</th>
+                        <th>Average Temperature</th>
+                        <th>Average Population</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                </tbody>
+            </table>
+        </div>
         
                     <table>
                     <h1>Country 2</h1>

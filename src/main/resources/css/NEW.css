@@ -45,7 +45,6 @@ select {
 }
 
 form {
-    display: flex;
     grid-template-columns: auto 1fr;
     align-items: center;
 }
@@ -340,3 +339,44 @@ form {
     color: #000;
     text-decoration: underline;
 }
+.REGNUM #RegionNums{
+    width: fit-content;
+}
+.REGS #regionSelect0, #regionSelect2,#regionSelect3, #regionSelect4, #regionSelect1{
+    width: fit-content;
+}
+.periods #periods0, #periods1, #periods2, #periods3, #periods4{
+    width: fit-content;
+}
+#yearLengths0 {
+    width: fit-content;
+}
+#yearLengths1 {
+    width: fit-content;
+}
+#yearLengths2 {
+    width: fit-content;
+}
+#yearLengths3 {
+    width: fit-content;
+}
+#yearLengths4 {
+    width: fit-content;
+}
+
+#yearLengths0 #startingYear1, #startingYear2, #startingYear3, #startingYear4, #startingYear5 {
+    width: fit-content;
+}
+#yearLengths1 #startingYear1, #startingYear2, #startingYear3, #startingYear4, #startingYear5{
+    width: fit-content;
+}
+#yearLengths2 #startingYear1, #startingYear2, #startingYear3, #startingYear4, #startingYear5{
+    width: fit-content;
+}
+#yearLengths3 #startingYear1, #startingYear2, #startingYear3, #startingYear4, #startingYear5{
+    width: fit-content;
+}
+#yearLengths4 #startingYear1, #startingYear2, #startingYear3, #startingYear4, #startingYear5{
+    width: fit-content;
+}
+

@@ -98,11 +98,11 @@
                     var input = document.createElement('input');
                         input.type = 'number';
                         input.name = 'yearLength';
-                        input.placeholder = 'Enter year length for period ';
+                        input.placeholder = 'Enter year length';
                         yearLengthsDiv.appendChild(input);
                         yearLengthsDiv.appendChild(document.createElement('br'));
                 }
-        
+                
                 function generateYearOptions() {
                     var options = '<option value="" selected disabled>Select starting year</option>';
                     for (var year = 1900; year <= 2100; year++) {

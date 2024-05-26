@@ -981,6 +981,36 @@ public ArrayList<statee> getCountryState() {
         }
         return countryState;
     }
+
+    public ArrayList<cityy> getCountryCity() {
+        ArrayList<cityy> countryCity = new ArrayList<cityy>();
+        Connection connection = null;
+        try  {
+            connection = DriverManager.getConnection(DATABASE);
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);
+            ResultSet resultSet = statement.executeQuery("select countryname as countryname, cityname as cityname from city ct join country ctr on ct.countryid = ctr.id");
+            while (resultSet.next()) {
+                String countryname = resultSet.getString("countryname");
+                String cityname = resultSet.getString("cityname");
+                cityy countryCityy = new cityy(countryname, cityname);
+                countryCity.add(countryCityy);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                // connection close failed.
+                System.err.println(e.getMessage());
+            }
+        }
+        return countryCity;
+    }
     
 
     

@@ -40,6 +40,19 @@ public class PeriodSimilar implements Handler {
 
 <!------------------------------------------Script--------------------------------------------------------->
 
+<script>
+function capitalizeFirstLetter(input) {
+    // Lấy giá trị nhập liệu từ trường input
+    var value = input.value;
+
+    // Chuyển đổi ký tự đầu tiên thành in hoa
+    var capitalizedValue = value.charAt(0).toUpperCase() + value.slice(1);
+
+    // Cập nhật giá trị của trường input với ký tự đầu tiên đã được chuyển đổi thành in hoa
+    input.value = capitalizedValue;
+}
+</script>
+
 <div class='test'>
     <form action='/period.html' method='post'>
         <select id='test' name = 'test'>
@@ -63,14 +76,15 @@ if(a == null){
 else if (a.equals("Country")){
     
     html += "<form action='/period.html' method='post'>";
-    html +=    "<select id='name' name = 'name'>";
-    html +=        "<option value='' selected disabled>Select a country</option>";
-                    ArrayList<String> ctr = jdbc.getCountries();
-                    for(int i = 0; i < ctr.size(); ++i){
-                        html += "<option>" + ctr.get(i) + "</option>";
-                    }
-    html +=    "</select>";
-    html +=     "<select id = 'startingYear' name ='startingYear'>";
+    html += "<label for='country'>Country:</label>";
+    html += "<input list='countryList' id='country' name='country' oninput='capitalizeFirstLetter(this)'>";
+    html += "<datalist id='countryList'>";
+    ArrayList<String> ctr = jdbc.getCountries();
+    for(int i = 0; i < ctr.size(); ++i) {
+        html += "<option value='" + ctr.get(i) + "'>";
+    }
+    html += "</datalist>";
+    html += "<select id='startingYear' name='startingYear'>";
                 ArrayList<Integer> year = jdbc.getCountryYear();
                 html += "<option value='' selected disabled>Select a starting year</option>";
                 for(Integer years : year ){
@@ -108,13 +122,15 @@ else if (a.equals("Country")){
 
  else if (a.equals("State")){
     html += "<form action='/period.html' method='post'>";
-    html +=    "<select id='name' name = 'name'>";
-    html +=        "<option value='' selected disabled>Select a state</option>";
-                    ArrayList<statee> sta = jdbc.getCountryState();
-                    for( statee stas : sta){
-                        html += "<option value=" + "'" + stas.getState() + "'>" + stas.getCountry() + " - " + stas.getState() + "</option>";
-                    }
-    html +=    "</select>";
+    html += "<label for='state'>State:</label>";
+    html += "<input list='stateList' id='state' name='state' oninput='capitalizeFirstLetter(this)'>";
+    html += "<datalist id='stateList'>";
+    html +=     "<option value='' selected disabled>Select a state</option>";
+    ArrayList<statee> sta = jdbc.getCountryState();
+    for (statee stas : sta) {
+        html += "<option value='" + stas.getState() + "'>" + stas.getCountry() + " - " + stas.getState() + "</option>";
+    }
+    html += "</datalist>";
     html +=     "<select id = 'startingYear' name ='startingYear'>";
     ArrayList<Integer> year = jdbc.getStateTempYear();
                 html += "<option value='' selected disabled>Select a starting year</option>";
@@ -142,13 +158,15 @@ html += "<option value='' selected disabled>Select a number</option>";
 
  else if(a.equals("City")){
     html += "<form action='/period.html' method='post'>";
-    html +=    "<select id='name' name = 'name'>";
-    html +=        "<option value='' selected disabled>Select a city</option>";
+    html += "<label for='city'>City:</label>";
+    html += "<input list='cityList' id='city' name = 'city' oninput='capitalizeFirstLetter(this)'>";
+    html += "<datalist id='cityList'>";
+    html += "<option value='' selected disabled>Select a city</option>";
                     ArrayList<cityy> cit = jdbc.getCountryCity();
                     for(cityy city : cit){
                         html += "<option value ='" + city.getCity() + "'>" + city.getCountry() + " - " + city.getCity() + "</option>";
                     }
-    html +=    "</select>";
+    html +=    "</datalist>";
     html +=     "<select id = 'startingYear' name ='startingYear'>";
     ArrayList<Integer> year = jdbc.getCityYear();
                 html += "<option value='' selected disabled>Select a starting year</option>";

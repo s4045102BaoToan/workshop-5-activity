@@ -951,8 +951,37 @@ public class JDBCConnection {
     }
         return yeartempObjs;
     }
+ 
+public ArrayList<statee> getCountryState() {
+        ArrayList<statee> countryState = new ArrayList<statee>();
+        Connection connection = null;
+        try  {
+            connection = DriverManager.getConnection(DATABASE);
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);
+            ResultSet resultSet = statement.executeQuery("select ctr.countryname as countryname, st.statename as statename from country ctr join state st on ctr.id = st.countryid");
+            while (resultSet.next()) {
+                String countryname = resultSet.getString("countryname");
+                String statename = resultSet.getString("statename");
+                statee statecountry = new statee(statename, countryname);
+                countryState.add(statecountry);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
 
-
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                // connection close failed.
+                System.err.println(e.getMessage());
+            }
+        }
+        return countryState;
+    }
+    
 
     
     }
